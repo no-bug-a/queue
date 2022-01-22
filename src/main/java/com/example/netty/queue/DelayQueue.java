@@ -48,6 +48,8 @@ public class DelayQueue {
         QueueBaseEntity endEntity = new QueueBaseEntity();
         endEntity.setDbId(entity.getDbId());
         endEntity.setSalt(entity.getSalt());
+        endEntity.setDeviceId(entity.getDeviceId());
+        endEntity.setDelay(entity.getDelay());
         int offset = queueHelper.getOffset(entity.getDeviceId());
         entity.setType(1);
         entity.setDelay(offset);

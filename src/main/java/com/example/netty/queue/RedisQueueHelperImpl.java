@@ -24,7 +24,8 @@ public class RedisQueueHelperImpl implements IQueueHelper{
 
     @Override
     public void add(QueueTypeEnum queueType, QueueBaseEntity entity) {
-        Assert.isTrue(entity.getSalt() == null && entity.getDbId() == null, "salt 和 dbId 不能同时为空");
+        Assert.isTrue(entity.getSalt() != null || entity.getDbId() != null, "salt 和 dbId 不能同时为空");
+        Assert.isTrue(getAllDeviceIds().contains(entity.getDeviceId()), "设备不存在");
         if (queueType == QueueTypeEnum.DELAY) {
             zSetOperations.add(DELAY_KEY_PREFIX + entity.getDeviceId(), entity,  getCurrentSecond() + entity.getDelay());
         } else {
